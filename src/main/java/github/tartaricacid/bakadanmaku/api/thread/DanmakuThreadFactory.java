@@ -2,7 +2,7 @@ package github.tartaricacid.bakadanmaku.api.thread;
 
 import github.tartaricacid.bakadanmaku.BakaDanmaku;
 import github.tartaricacid.bakadanmaku.config.BakaDanmakuConfig;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.EnumChatFormatting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,8 +66,8 @@ public class DanmakuThreadFactory {
         } else {
             // 发送错误信息
             BakaDanmaku.logger.error("平台 [" + platform + "] 不存在！请检查配置文件或已安装 Mod！");
-            BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "弹幕姬错误：");
-            BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "平台 [" + platform + "] 不存在！请检查配置文件或已安装 Mod！");
+            BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "弹幕姬错误：");
+            BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "平台 [" + platform + "] 不存在！请检查配置文件或已安装 Mod！");
         }
     }
 

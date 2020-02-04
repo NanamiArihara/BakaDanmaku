@@ -1,6 +1,7 @@
 package github.tartaricacid.bakadanmaku.api.event;
 
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
+
+import cpw.mods.fml.common.eventhandler.Cancelable;
 
 @Cancelable
 public class WelcomeEvent extends BaseDanmakuEvent {

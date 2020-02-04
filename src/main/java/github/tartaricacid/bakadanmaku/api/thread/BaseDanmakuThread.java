@@ -3,7 +3,7 @@ package github.tartaricacid.bakadanmaku.api.thread;
 import github.tartaricacid.bakadanmaku.BakaDanmaku;
 import github.tartaricacid.bakadanmaku.config.BakaDanmakuConfig;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.ChatComponentText;
 
 public abstract class BaseDanmakuThread implements Runnable {
     protected int retryCounter = BakaDanmakuConfig.network.retry; // 配置文件，重试次数
@@ -25,8 +25,8 @@ public abstract class BaseDanmakuThread implements Runnable {
      * @return 检查是否通过
      */
     public boolean preRunCheck() {
-        if (Minecraft.getMinecraft().player != null)
-            BakaDanmaku.player = Minecraft.getMinecraft().player;
+        if (Minecraft.getMinecraft().thePlayer != null)
+            BakaDanmaku.player = Minecraft.getMinecraft().thePlayer;
         return true;
     }
 
@@ -47,7 +47,7 @@ public abstract class BaseDanmakuThread implements Runnable {
      */
     public static void sendChatMessage(String text) {
         if (BakaDanmaku.player != null)
-            BakaDanmaku.player.sendMessage(new TextComponentString(text));
+            BakaDanmaku.player.addChatMessage(new ChatComponentText(text));
     }
 
     /**

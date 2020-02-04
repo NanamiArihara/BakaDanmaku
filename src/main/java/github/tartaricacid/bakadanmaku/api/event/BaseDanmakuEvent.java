@@ -1,6 +1,7 @@
 package github.tartaricacid.bakadanmaku.api.event;
 
-import net.minecraftforge.fml.common.eventhandler.Event;
+
+import cpw.mods.fml.common.eventhandler.Event;
 
 /**
  * 所有自定义事件的抽象类

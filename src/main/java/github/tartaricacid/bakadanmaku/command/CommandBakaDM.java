@@ -6,8 +6,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.EnumChatFormatting;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -19,12 +18,12 @@ public class CommandBakaDM extends CommandBase {
     private static final String commandHelpText = "/bakadm [子命令] [参数]\n子命令：start，stop，restart，running"; // 帮助
 
     @Override
-    public String getName() {
+    public String getCommandName() {
         return commandBakaDanmaku;
     }
 
     @Override
-    public String getUsage(ICommandSender sender) {
+    public String getCommandUsage(ICommandSender sender) {
         return commandHelpText;
     }
 
@@ -34,10 +33,10 @@ public class CommandBakaDM extends CommandBase {
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         // 参数为空
         if (args.length == 0) {
-            BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "用法：" + commandHelpText);
+            BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "用法：" + commandHelpText);
             return;
         }
 
@@ -55,7 +54,7 @@ public class CommandBakaDM extends CommandBase {
                 if (args.length == 1) {
                     // 启动配置文件中指定的全部 DanmakuThread
                     if (!DanmakuThreadFactory.getRunningDanmakuThread().isEmpty()) {
-                        BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "弹幕姬已处于运行状态！");
+                        BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "弹幕姬已处于运行状态！");
                     } else {
                         DanmakuThreadFactory.restartThreads();
                     }
@@ -63,11 +62,11 @@ public class CommandBakaDM extends CommandBase {
                     // 启动指定的 DanmakuThread
                     for (int i = 1; i < args.length; i++) {
                         if (!DanmakuThreadFactory.isDanmakuThreadAvailable(args[i])) {
-                            BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "弹幕线程\"" + args[i] + "\"不存在！");
+                            BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "弹幕线程\"" + args[i] + "\"不存在！");
                             continue;
                         }
                         if (DanmakuThreadFactory.isThreadRunning(args[i])) {
-                            BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "弹幕线程\"" + args[i] + "\"正在运行！");
+                            BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "弹幕线程\"" + args[i] + "\"正在运行！");
                             continue;
                         }
 
@@ -83,7 +82,7 @@ public class CommandBakaDM extends CommandBase {
             case "stop": {
                 if (args.length == 1) {
                     if (DanmakuThreadFactory.getRunningDanmakuThread().isEmpty()) {
-                        BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "弹幕姬已停止！");
+                        BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "弹幕姬已停止！");
                     } else {
                         BaseDanmakuThread.sendChatMessage("§8§l正在停止中……");
                         DanmakuThreadFactory.stopAllThreads();
@@ -93,11 +92,11 @@ public class CommandBakaDM extends CommandBase {
                     // 停止指定的 DanmakuThread
                     for (int i = 1; i < args.length; i++) {
                         if (!DanmakuThreadFactory.isDanmakuThreadAvailable(args[i])) {
-                            BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "弹幕线程\"" + args[i] + "\"不存在！");
+                            BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "弹幕线程\"" + args[i] + "\"不存在！");
                             continue;
                         }
                         if (!DanmakuThreadFactory.isThreadRunning(args[i])) {
-                            BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "弹幕线程\"" + args[i] + "\"已停止！");
+                            BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "弹幕线程\"" + args[i] + "\"已停止！");
                             continue;
                         }
 
@@ -117,12 +116,12 @@ public class CommandBakaDM extends CommandBase {
 
             // 帮助指令
             case "help": {
-                BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "用法：" + commandHelpText);
+                BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "用法：" + commandHelpText);
                 break;
             }
 
             default:
-                BaseDanmakuThread.sendChatMessage(TextFormatting.RED + "用法：" + commandHelpText);
+                BaseDanmakuThread.sendChatMessage(EnumChatFormatting.RED + "用法：" + commandHelpText);
                 break;
         }
     }
@@ -131,7 +130,7 @@ public class CommandBakaDM extends CommandBase {
      * Tab 补全具体实现
      */
     @Override
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
         // 存入当前可用指令，这个是给遍历用的
         List<String> listIn = new ArrayList<>(Arrays.asList("restart", "start", "stop", "running", "help"));
 

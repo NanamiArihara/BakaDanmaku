@@ -1,13 +1,12 @@
 package github.tartaricacid.bakadanmaku.config;
 
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import github.tartaricacid.bakadanmaku.BakaDanmaku;
 import github.tartaricacid.bakadanmaku.api.thread.BaseDanmakuThread;
 import github.tartaricacid.bakadanmaku.api.thread.DanmakuThreadFactory;
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.ConfigManager;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import github.tartaricacid.common.config.Config;
+import github.tartaricacid.common.config.ConfigManager;
 
 @Config(modid = BakaDanmaku.MOD_ID, name = "BakaDanmaku", category = "baka_danmaku_mod")
 public class BakaDanmakuConfig {
@@ -170,11 +169,10 @@ public class BakaDanmakuConfig {
     /**
      * 用于 GUI 界面配置调节的保存
      */
-    @Mod.EventBusSubscriber(modid = BakaDanmaku.MOD_ID)
     public static class ConfigSyncHandler {
         @SubscribeEvent
-        public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-            if (event.getModID().equals(BakaDanmaku.MOD_ID)) {
+        public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+            if (event.modID.equals(BakaDanmaku.MOD_ID)) {
                 // 重载配置
                 ConfigManager.sync(BakaDanmaku.MOD_ID, Config.Type.INSTANCE);
 
