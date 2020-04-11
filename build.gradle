@@ -16,6 +16,7 @@ buildscript {
 }
 
 apply plugin: 'forge'
+apply plugin: 'idea'
 
 sourceCompatibility = targetCompatibility = '1.8'
 
